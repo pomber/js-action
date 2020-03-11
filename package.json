@@ -1,0 +1,25 @@
+{
+  "name": "js-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "ncc build index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pomber/js-action.git"
+  },
+  "keywords": [],
+  "author": "Rodrigo Pombo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pomber/js-action/issues"
+  },
+  "homepage": "https://github.com/pomber/js-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.3",
+    "@actions/github": "^2.1.1"
+  }
+}
