@@ -28,10 +28,10 @@ async function main() {
     const time = new Date().toTimeString();
     core.setOutput("time", time);
 
-    const x = await octokit.graphql(query);
-    console.log("x is ", x);
-    console.log("x is ", JSON.stringify(x));
-    const repoStars = x.response.viewer.repositories.nodes.map(repo => ({
+    const data = await octokit.graphql(query);
+    console.log("x is ", data);
+    console.log("x is ", JSON.stringify(data));
+    const repoStars = data.viewer.repositories.nodes.map(repo => ({
       name: repo.name,
       stars: repo.stargazers.totalCount
     }));
