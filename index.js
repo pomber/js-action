@@ -1,6 +1,6 @@
 const core = require("@actions/core");
 // const github = require("@actions/github");
-const { Octokit } = require("@octokit/action");
+const { Octokit } = require("@octokit/core");
 
 const query = `{
   viewer {
@@ -20,8 +20,7 @@ main();
 
 async function main() {
   try {
-    // `who-to-greet` input defined in action metadata file
-    const octokit = new Octokit();
+    const octokit = new Octokit({ auth: core.getInput("USER_TOKEN") });
     const nameToGreet = core.getInput("who-to-greet");
     console.log(`Hello ${nameToGreet}!`);
     const time = new Date().toTimeString();

@@ -13,7 +13,8 @@ jobs:
         id: hello
         with:
           who-to-greet: "pomber"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USER_TOKEN: ${{ secrets.USER_TOKEN }}
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.time }}"
