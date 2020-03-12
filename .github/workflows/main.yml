@@ -15,6 +15,12 @@ jobs:
           who-to-greet: "pomber"
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USER_TOKEN: ${{ secrets.USER_TOKEN }}
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.time }}"
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m "Add changes" -a
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

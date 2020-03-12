@@ -1,4 +1,6 @@
 const core = require("@actions/core");
+const fs = require("fs");
+const path = require("path");
 // const github = require("@actions/github");
 const { Octokit } = require("@octokit/core");
 
@@ -26,8 +28,13 @@ async function main() {
     const time = new Date().toTimeString();
     core.setOutput("time", time);
 
-    const data = await octokit.graphql(query);
-    console.log(`response:`, JSON.stringify(data, null, 2));
+    const { response } = await octokit.graphql(query);
+    const repoStars = response.viewer.repositories.nodes.map(repo => ({
+      name: repo.name,
+      stars: repo.stargazers.totalCount
+    }));
+    console.log(`response:`, JSON.stringify(repoStars, null, 2));
+    writeData(repoStars);
 
     // Get the JSON webhook payload for the event that triggered the workflow
     // const payload = JSON.stringify(github.context.payload, undefined, 2);
@@ -35,4 +42,22 @@ async function main() {
   } catch (error) {
     core.setFailed(error.message);
   }
+}
+
+function writeData(repoStars) {
+  console.log("ws path", process.env.GITHUB_WORKSPACE);
+  const isoDate = new Date().toISOString();
+  const month = isoDate.slice(0, 7);
+  const filename = month + ".csv";
+  const stream = fs.createWriteStream(
+    path.join(process.env.GITHUB_WORKSPACE, "data", filename),
+    { flags: "a" }
+  );
+
+  repoStars.forEach(({ name, stars }) => {
+    stream.write(`${isoDate},${name},${stars}\n`);
+  });
+
+  console.log(new Date().toISOString());
+  stream.end();
 }
