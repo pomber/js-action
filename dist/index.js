@@ -2090,6 +2090,20 @@ const { Octokit } = __webpack_require__(34);
 
 main();
 
+const query = `{
+  viewer {
+    login
+    repositories(orderBy: {field: STARGAZERS, direction: DESC}, first: 25, privacy: PUBLIC) {
+      nodes {
+        name
+        stargazers {
+          totalCount
+        }
+      }
+    }
+  }
+}`;
+
 async function main() {
   try {
     // `who-to-greet` input defined in action metadata file
@@ -2099,7 +2113,7 @@ async function main() {
     const time = new Date().toTimeString();
     core.setOutput("time", time);
 
-    const data = await octokit.graphql(query, variables);
+    const data = await octokit.graphql(query);
     console.log(`response:`, JSON.stringify(data, null, 2));
 
     // Get the JSON webhook payload for the event that triggered the workflow
