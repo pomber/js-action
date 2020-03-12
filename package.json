@@ -20,6 +20,7 @@
   "homepage": "https://github.com/pomber/js-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.3",
-    "@actions/github": "^2.1.1"
+    "@actions/github": "^2.1.1",
+    "@octokit/action": "^2.0.0"
   }
 }
