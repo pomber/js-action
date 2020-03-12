@@ -2,8 +2,6 @@ const core = require("@actions/core");
 // const github = require("@actions/github");
 const { Octokit } = require("@octokit/action");
 
-main();
-
 const query = `{
   viewer {
     login
@@ -17,6 +15,8 @@ const query = `{
     }
   }
 }`;
+
+main();
 
 async function main() {
   try {

@@ -2088,8 +2088,6 @@ const core = __webpack_require__(525);
 // const github = require("@actions/github");
 const { Octokit } = __webpack_require__(34);
 
-main();
-
 const query = `{
   viewer {
     login
@@ -2103,6 +2101,8 @@ const query = `{
     }
   }
 }`;
+
+main();
 
 async function main() {
   try {
